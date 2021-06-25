@@ -1,6 +1,4 @@
-require "mastermind/version"
+require_relative "game.rb"
+require_relative "creator.rb"
 
-module Mastermind
-  class Error < StandardError; end
-  # Your code goes here...
-end
+Game.new.play
