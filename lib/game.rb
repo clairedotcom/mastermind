@@ -10,9 +10,14 @@ class Game
 
     def play
         code = code_to_colors(@creator.make_code)
-        puts code
-        guess = solicit_guess
-        puts check_guess(guess,code)
+        #display(code)
+        guess = Array.new(4)
+        
+        until guess == code do
+            guess = solicit_guess
+            display(check_guess(guess,code))
+        end
+        puts "You win!"
     end
     
     def code_to_colors(array)
@@ -20,7 +25,7 @@ class Game
     end
     
     def solicit_guess
-        puts "Please enter your guess: "
+        puts "Please enter your guess (one by one): "
         guess = Array.new(4) {gets.chomp}
     end  
     
@@ -36,6 +41,10 @@ class Game
             end    
         end
         return feedback
+    end
+    
+    def display(array)
+        puts "#{array[0]} | #{array[1]} | #{array[2]} | #{array[3]}"
     end    
 end    
 
