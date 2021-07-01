@@ -2,7 +2,7 @@ require_relative "creator.rb"
 require_relative "guesser.rb"
 
 class Game
-    COLORS = ["blue","green","yellow","orange","pink","purple"]
+    COLORS = ["blue","green","yellow","orange","pink","red"]
 
     def initialize
         @creator = Creator.new
@@ -10,7 +10,7 @@ class Game
 
     def play
         code = code_to_colors(@creator.make_code)
-        #display(code)
+        display(code)
         guess = Array.new(4)
         
         until guess == code do
@@ -44,10 +44,20 @@ class Game
     end
     
     def display(array)
-        puts "#{array[0]} | #{array[1]} | #{array[2]} | #{array[3]}"
+        array.each do |item| 
+            print map_colors(item)
+        end
+        #puts "#{map_colors(array[0])} | #{array[1]} | #{array[2]} | #{array[3]}"
+    end
+    
+    def map_colors(key)
+        {
+            "blue" => "\e[34m blue \e[0m",
+            "green" => "\e[32m green \e[0m",
+            "yellow" => "\e[33m yellow \e[0m",
+            "orange" => "\e[47m orange \e[0m",
+            "pink" => "\e[35m pink \e[0m",
+            "red" => "\e[31m red \e[0m"
+        }[key]
     end    
-end    
-
-#def red
-#"\e[31m#{self}\e[0m"
-#end
+end
