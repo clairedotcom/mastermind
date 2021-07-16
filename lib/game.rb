@@ -6,30 +6,51 @@ class Game
 
     def initialize
         @creator = Creator.new
+        @guesser = Guesser.new
     end    
 
     def play
+        welcome_dialogue
         #code = code_to_colors(@creator.make_code)
-        code = @creator.make_code
-        guess = Array.new(4)
-        
-        until guess == code do
-            guess = solicit_guess
-            display(check_guess(guess,code))
+        mode = choose_mode
+        if mode == "0"
+            #code = @creator.make_code
+        elsif mode == "1"
+            #code == @guesser.make_code
+            human_guesser
         end
-        puts "You win!"
+
+        #guess = Array.new(4)
+        
+        #until guess == code do
+        #    guess = solicit_guess
+        #    display(check_guess(guess,code))
+        #end
+        #puts "You win!"
     end
     
-    def code_to_colors(array)
-        code_str = array.map {|value| COLORS[value]}
-    end
+    #def code_to_colors(array)
+    #    code_str = array.map {|value| COLORS[value]}
+    #end
     
     def solicit_guess
         puts "Please enter your guess: "
         guess = gets.chomp
         guess.split("")
         #guess = Array.new(4) {gets.chomp}
-    end  
+    end
+    
+    def human_guesser
+        code = @creator.make_code
+        guess = Array.new(4)
+
+        until guess == code do
+            guess = solicit_guess
+            display(check_guess(guess,code))
+        end
+        puts "You win!"
+    end    
+
     
     def check_guess(guess,code)
         feedback = Array.new(4)
@@ -63,5 +84,21 @@ class Game
             "black" => "\e[40m black \e[0m",
             "white" => "\e[7m white \e[27m"
         }[key]
+    end
+    
+    def welcome_dialogue
+        print "Welcome to Mastermind!\n"
+        print "This is a code breaking game.\n"
+        print "You will select whether you would like to make a code or guess a code. \n"
+        print "As the guessor, you will receive feedback on your guess as follows:\n"
+        print "White means correct color, wrong position.\n"
+        print "Black means correct color, correct position.\n"
+        print "Empty means that number/color isn't in the code.\n"
+        print "Let's get started!\n"
+    end
+
+    def choose_mode
+        puts "Please enter 0 to be the code creator or 1 to be the code guesser: "
+        mode = gets.chomp
     end    
 end
