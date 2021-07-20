@@ -1,12 +1,12 @@
-require_relative "creator.rb"
-require_relative "guesser.rb"
+require_relative "human.rb"
+require_relative "computer.rb"
 
 class Game
     #COLORS = ["blue","green","yellow","orange","pink","red"]
 
     def initialize
-        @creator = Creator.new
-        @guesser = Guesser.new
+        @computer = Computer.new
+        @human = Human.new
     end    
 
     def play
@@ -14,19 +14,11 @@ class Game
         #code = code_to_colors(@creator.make_code)
         mode = choose_mode
         if mode == "0"
+            computer_guesser
             #code = @creator.make_code
         elsif mode == "1"
-            #code == @guesser.make_code
             human_guesser
         end
-
-        #guess = Array.new(4)
-        
-        #until guess == code do
-        #    guess = solicit_guess
-        #    display(check_guess(guess,code))
-        #end
-        #puts "You win!"
     end
     
     #def code_to_colors(array)
@@ -34,14 +26,27 @@ class Game
     #end
     
     def solicit_guess
-        puts "Please enter your guess: "
+        puts "Please enter your guess (number between 1 and 6): "
         guess = gets.chomp
         guess.split("")
         #guess = Array.new(4) {gets.chomp}
     end
     
+    def computer_guesser
+        code = @human.make_code
+        guess = @computer.initial_guess
+        
+        until guess == code do
+            feedback = check_guess(guess,code)
+            guess = @computer.make_guess(guess,feedback)
+            puts guess
+            display(check_guess(guess,code))
+        end
+        puts "Computer wins!"
+    end    
+
     def human_guesser
-        code = @creator.make_code
+        code = @computer.make_code
         guess = Array.new(4)
 
         until guess == code do
@@ -49,9 +54,8 @@ class Game
             display(check_guess(guess,code))
         end
         puts "You win!"
-    end    
+    end
 
-    
     def check_guess(guess,code)
         feedback = Array.new(4)
         guess.each_with_index do |value,index|
@@ -95,6 +99,7 @@ class Game
         print "Black means correct color, correct position.\n"
         print "Empty means that number/color isn't in the code.\n"
         print "Let's get started!\n"
+        print "------------------\n"
     end
 
     def choose_mode
