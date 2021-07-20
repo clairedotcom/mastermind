@@ -1,5 +1,5 @@
 class Computer
-#have a method to generate guesses according to game strategy
+
     def initial_guess
         guess = 4.times.map {|value| rand(1..6).to_s}
     end
@@ -16,7 +16,6 @@ class Computer
         return new_guess
     end 
 
-#method to make a code from random numbers
     def make_code
         code = 4.times.map {|value| rand(1..6).to_s}
     end 

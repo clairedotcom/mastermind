@@ -11,14 +11,8 @@ class Game
 
     def play
         welcome_dialogue
-        #code = code_to_colors(@creator.make_code)
         mode = choose_mode
-        if mode == "0"
-            computer_guesser
-            #code = @creator.make_code
-        elsif mode == "1"
-            human_guesser
-        end
+        mode == "0" ? computer_guesser : human_guesser
     end
     
     #def code_to_colors(array)
@@ -29,7 +23,6 @@ class Game
         puts "Please enter your guess (number between 1 and 6): "
         guess = gets.chomp
         guess.split("")
-        #guess = Array.new(4) {gets.chomp}
     end
     
     def computer_guesser
@@ -71,9 +64,6 @@ class Game
     end
     
     def display(array)
-        #array.each do |item| 
-        #    print map_colors(item)
-        #end
         puts "#{map_colors(array[0])} | #{map_colors(array[1])} | #{map_colors(array[2])} | #{map_colors(array[3])}"
     end
     
