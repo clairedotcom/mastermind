@@ -82,6 +82,7 @@ class Game
     
     def welcome_dialogue
         print "Welcome to Mastermind!\n"
+        print "------------------\n"
         print "This is a code breaking game.\n"
         print "You will select whether you would like to make a code or guess a code. \n"
         print "As the guessor, you will receive feedback on your guess as follows:\n"
