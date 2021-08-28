@@ -2,8 +2,6 @@ require_relative "human.rb"
 require_relative "computer.rb"
 
 class Game
-    #COLORS = ["blue","green","yellow","orange","pink","red"]
-
     def initialize
         @computer = Computer.new
         @human = Human.new
@@ -15,12 +13,8 @@ class Game
         mode == "0" ? computer_guesser : human_guesser
     end
     
-    #def code_to_colors(array)
-    #    code_str = array.map {|value| COLORS[value]}
-    #end
-    
     def solicit_guess
-        puts "Please enter your guess (number between 1 and 6): "
+        puts "Please enter your guess (four numbers between 1 and 6): "
         guess = gets.chomp
         guess.split("")
     end
